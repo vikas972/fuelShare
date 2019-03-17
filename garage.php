@@ -104,6 +104,60 @@
                     </div>
                     
                         </form>
+                         <div class="col-xs-12">
+
+                         	<table class="table table-bordered table-hover">
+
+                        <thead>
+                            
+                        <tr>
+                            
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Contact</th>
+                            <th>Rating</th>
+                           
+                        </tr>
+
+
+                        </thead>
+
+                        <?php
+				include "../../db.php"; 
+				if (isset($_POST['submit'])) {
+                    $search =  $_POST['search'];
+                    $query_Like = "SELECT * FROM mechanical WHERE location LIKE '%$search%' "; 
+                    $search_query = mysqli_query($connect,$query_Like);
+                    $count = mysqli_num_rows($search_query);
+                    if ($count == 0) {
+                        echo "<h2>$search location has no garage at this time<h2>
+                        ";
+                       }else{
+                          $query = "SELECT * FROM mechanical";
+            $selectallposts = mysqli_query($connect,$query);
+            while ($row = mysqli_fetch_assoc($search_query))
+             {
+             	 $name = $row['name'];
+       $contact = $row['contact'];
+    $ratings = $row['ratings'];
+    $location = $row['location'];
+
+        echo "<tr>";
+        echo "<td>$name</td>";
+        echo "<td>$location </td>";
+        echo "<td>$contact</td>";
+        echo "<td>$ratings</td>";
+        echo "</tr>";
+    }
+}
+}
+
+                        ?>
+
+                        </table>
+
+
+                         </div>
 
 
 		</div><!--/.row-->
